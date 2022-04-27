@@ -1,1 +1,1 @@
-# food-festival
+# Food Festival
