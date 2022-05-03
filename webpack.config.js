@@ -2,6 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 const BundleAnalyzerPlugin =
   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const WebpackPwaManifest = require("webpack-pwa-manifest");
 
 // For a basic configuration, we need to provide webpack with three properties: entry, output, and mode. The first thing we want to declare is the entry property.
 const config = {
@@ -54,6 +55,28 @@ const config = {
     new BundleAnalyzerPlugin({
       // We configured the analyzerMode property with a static value. This will output an HTML file called report.html that will generate in the dist folder. We can also set this value to disable to temporarily stop the reporting and automatic opening of this report in the browser.
       analyzerMode: "static", // the report outputs to an HTML file in the dist folder
+    }),
+    // When we use the new keyword, we are invoking a constructor function. After we instantiate our new WebpackPwaManifest, we provide an object as our only argument.
+    new WebpackPwaManifest({
+      name: "Food Event",
+      short_name: "Foodies",
+      description: "An app that allows you to view upcoming food events.",
+      // We included a start_url property to specify the homepage for the PWA relative to the location of the manifest file.
+      start_url: "../index.html",
+      background_color: "#01579b",
+      theme_color: "#ffffff",
+      // Fingerprints tell webpack whether or not it should generate unique fingerprints so that each time a new manifest is generated, it looks like this: manifest.lhge325d.json. Because we do not want this feature, we set fingerprints to be false.
+      fingerprints: false,
+      // The inject property determines whether the link to the manifest.json is added to the HTML. Because we are not using fingerprints, we can also set inject to be false. We will hardcode the path to the manifest.json instead, just like we would in an application without webpack.
+      inject: false,
+      // We provide an icons property, the value of which will be an array of objects. That object contains a src property, which is a path to the icon image we want to use. The next property is sizes. The plugin will take the src image, and create icons with the dimensions of the numbers provided as the value of the sizes property. Finally, the destination property designates where the icons will be sent after the creation of the web manifest is completed by the plugin.
+      icons: [
+        {
+          src: path.resolve("assets/img/icons/icon-512x512.png"),
+          sizes: [96, 128, 192, 256, 384, 512],
+          destination: path.join("assets", "icons"),
+        },
+      ],
     }),
   ],
   // The final piece of our basic setup will provide the mode in which we want webpack to run. By default, webpack wants to run in production mode. In this mode, webpack will minify our code for us automatically, along with some other nice additions. We want our code to run in development mode.
