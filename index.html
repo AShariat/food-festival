@@ -229,4 +229,18 @@
       </div>
     </footer>
   </body>
+  <script>
+    (function () {
+      // The initial if conditional in the function checks to see if serviceWorker exists on the global navigator object.
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          // It's important that we include the ./ in front of service-worker.js in the preceding code block. If we used an absolute path here, this configuration would break on the deployed application.
+          .register("./service-worker.js")
+          .then(() => console.log("Service Worker registered successfully."))
+          .catch((error) =>
+            console.log("Service Worker registration failed:", error)
+          );
+      }
+    })();
+  </script>
 </html>
