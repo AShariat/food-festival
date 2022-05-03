@@ -16,12 +16,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/AShariat/food-festival/issues"
-  },
-  "homepage": "https://github.com/AShariat/food-festival#readme",
   "devDependencies": {
     "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
     "image-webpack-loader": "^8.1.0",
     "webpack": "^5.72.0",
     "webpack-bundle-analyzer": "^4.5.0",
